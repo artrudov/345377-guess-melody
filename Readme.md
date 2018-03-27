@@ -1,7 +1,7 @@
 # Личный проект «Угадай мелодию» [![Build status][travis-image]][travis-url]
 
 * Студент: [Артём Рудов](https://up.htmlacademy.ru/ecmascript/4/user/345377).
-* Наставник: `Неизвестно`.
+* Наставник: [Саша Ивашкин](https://htmlacademy.ru/profile/id7280).
 
 ---
 
