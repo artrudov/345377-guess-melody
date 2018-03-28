@@ -31,18 +31,18 @@ const renderScreen = () => {
 };
 
 // Функция отработки событий и смены экранов
-const keyHandler = (event) => {
-  switch (event.keyCode) {
-    case (event.altKey && LEFT_KEY_CODE):
-      event.preventDefault();
+const keyHandler = (evt) => {
+  switch (evt.keyCode) {
+    case (evt.altKey && LEFT_KEY_CODE):
+      evt.prevtDefault();
       if (counter <= 0) {
         break;
       }
       counter -= 1;
       renderScreen();
       break;
-    case (event.altKey && RIGHT_KEY_CODE):
-      event.preventDefault();
+    case (evt.altKey && RIGHT_KEY_CODE):
+      evt.preventDefault();
       if (counter === GAME_SCREENS.length - 1) {
         break;
       }
@@ -56,4 +56,4 @@ const keyHandler = (event) => {
 let counter = 0;
 
 renderScreen();
-document.addEventListener(`keydown`, keyHandler);
+document.addevtListener(`keydown`, keyHandler);
