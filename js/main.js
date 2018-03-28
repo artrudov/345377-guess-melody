@@ -31,10 +31,10 @@ const renderScreen = () => {
 };
 
 // Функция отработки событий и смены экранов
-const keyHandler = (evt) => {
+const CONTROL_KEY_HANDLER = (evt) => {
   switch (evt.keyCode) {
     case (evt.altKey && LEFT_KEY_CODE):
-      evt.prevtDefault();
+      evt.preventDefault();
       if (counter <= 0) {
         break;
       }
@@ -56,4 +56,4 @@ const keyHandler = (evt) => {
 let counter = 0;
 
 renderScreen();
-document.addevtListener(`keydown`, keyHandler);
+document.addEventListener(`keydown`, CONTROL_KEY_HANDLER);
