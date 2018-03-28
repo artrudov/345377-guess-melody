@@ -1,39 +1,39 @@
 // Главный экран приложения
-const appSection = document.querySelector(`.app`);
+const APP_SECTION = document.querySelector(`.app`);
 
 // Секция с копирайтами
-const copyrightSection = document.querySelector(`.copyright`);
+const COPYRIGHT_SECTION = document.querySelector(`.copyright`);
 
 // Выборка шаблонов
-const template = document.querySelector(`template`);
-const welcomeScreen = template.content.querySelector(`.main--welcome`);
-const genreScreen = template.content.querySelector(`.main--level-genre`);
-const artistScreen = template.content.querySelector(`.main--level-artist`);
-const resultScreen = template.content.querySelectorAll(`.main--result`);
-const resultWin = resultScreen[0];
-const resultTimeout = resultScreen[1];
-const resultAttempt = resultScreen[2];
+const TEMPLATE = document.querySelector(`template`);
+const WELCOME_SCREEN = TEMPLATE.content.querySelector(`.main--welcome`);
+const GENRE_SCREEN = TEMPLATE.content.querySelector(`.main--level-genre`);
+const ARTIST_SCREEN = TEMPLATE.content.querySelector(`.main--level-artist`);
+const RESULT_SCREEN = TEMPLATE.content.querySelectorAll(`.main--result`);
+const RESULT_WIN = RESULT_SCREEN[0];
+const RESULT_TIMEOUT = RESULT_SCREEN[1];
+const RESULT_ATTEMPT = RESULT_SCREEN[2];
 
 // Массив экранов
-const gameScreens = [welcomeScreen, genreScreen, artistScreen, resultWin, resultTimeout, resultAttempt];
+const GAME_SCREENS = [WELCOME_SCREEN, GENRE_SCREEN, ARTIST_SCREEN, RESULT_WIN, RESULT_TIMEOUT, RESULT_ATTEMPT];
 
 // Клавиатурные коды
-const leftKeyCode = 37;
-const rightKeyCode = 39;
+const LEFT_KEY_CODE = 37;
+const RIGHT_KEY_CODE = 39;
 
 // Функция выводов экранов
 const renderScreen = () => {
-  const renderTemplate = gameScreens[counter].cloneNode(true);
-  const mainSection = document.querySelector(`.main`);
+  const RENDER_TEMPLATE = GAME_SCREENS[counter].cloneNode(true);
+  const MAIN_SECTION = document.querySelector(`.main`);
 
-  appSection.removeChild(mainSection);
-  appSection.insertBefore(renderTemplate, copyrightSection);
+  APP_SECTION.removeChild(MAIN_SECTION);
+  APP_SECTION.insertBefore(RENDER_TEMPLATE, COPYRIGHT_SECTION);
 };
 
 // Функция отработки событий и смены экранов
 const keyHandler = (event) => {
   switch (event.keyCode) {
-    case (event.altKey && leftKeyCode):
+    case (event.altKey && LEFT_KEY_CODE):
       event.preventDefault();
       if (counter <= 0) {
         break;
@@ -41,9 +41,9 @@ const keyHandler = (event) => {
       counter -= 1;
       renderScreen();
       break;
-    case (event.altKey && rightKeyCode):
+    case (event.altKey && RIGHT_KEY_CODE):
       event.preventDefault();
-      if (counter === gameScreens.length - 1) {
+      if (counter === GAME_SCREENS.length - 1) {
         break;
       }
       counter += 1;
