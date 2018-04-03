@@ -1,36 +1,44 @@
-const APP_SECTION = document.querySelector(`.app`);
-const TEMPLATE = document.querySelector(`template`).content;
 const LEFT_KEY_CODE = 37;
 const RIGHT_KEY_CODE = 39;
 
-const welcomeScreen = TEMPLATE.querySelector(`.main--welcome`);
-const genreScreen = TEMPLATE.querySelector(`.main--level-genre`);
-const artistScreen = TEMPLATE.querySelector(`.main--level-artist`);
-const resultScreens = TEMPLATE.querySelectorAll(`.main--result`);
+const appSection = document.querySelector(`.app`);
+const template = document.querySelector(`template`).content;
+
+const welcomeScreen = template.querySelector(`.main--welcome`);
+const genreScreen = template.querySelector(`.main--level-genre`);
+const artistScreen = template.querySelector(`.main--level-artist`);
+const resultScreens = template.querySelectorAll(`.main--result`);
 
 const gameScreens = [welcomeScreen, genreScreen, artistScreen].concat([...resultScreens]);
 
 let counter = 0;
+let currentScreen = 0;
 
 const renderScreen = () => {
   const renderTemplate = gameScreens[counter].cloneNode(true);
-  APP_SECTION.replaceChild(renderTemplate, APP_SECTION.children[0]);
+  appSection.replaceChild(renderTemplate, appSection.children[0]);
+};
+
+const getNextScreenNumber = (count, current) => {
+  const next = current % count;
+  return next + (next < 0 ? count : 0);
+};
+
+const KeyCodes = {
+  [LEFT_KEY_CODE]: -1,
+  [RIGHT_KEY_CODE]: 1
 };
 
 document.addEventListener(`keydown`, (evt) => {
-  if (!evt.altKey || (evt.keyCode !== LEFT_KEY_CODE && evt.keyCode !== RIGHT_KEY_CODE)) {
-    return;
-  }
-
-  if (evt.keyCode === LEFT_KEY_CODE) {
-    counter = (counter > 0) ? --counter : 0;
-  } else if (evt.keyCode === RIGHT_KEY_CODE) {
-    counter = (counter < gameScreens.length - 1) ? ++counter : gameScreens.length - 1;
-  } else {
+  if (!evt.altKey || !KeyCodes[evt.keyCode]) {
     return;
   }
 
   evt.preventDefault();
+
+  currentScreen += KeyCodes[evt.keyCode];
+  counter = getNextScreenNumber(gameScreens.length, currentScreen);
   renderScreen();
 });
+
 renderScreen();
