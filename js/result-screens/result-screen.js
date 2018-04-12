@@ -4,13 +4,14 @@ import win from './win';
 import timeout from './timeout';
 import attempt from './attempt';
 
-const getRandom = function (min, max) {
+export const getRandom = function (min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 };
 
-const screens = [win, timeout, attempt];
+const screens = [win(), timeout(), attempt()];
 
 export default () => {
+
   const template = screens[getRandom(0, 2)];
   const node = template.cloneNode(true);
   const switchScreen = node.querySelector(`.main-replay`);
