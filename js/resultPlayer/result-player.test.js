@@ -1,6 +1,5 @@
 import {assert} from 'chai';
 import resultPlayer from './result-player';
-import scoring from "../scoring/scoring";
 
 describe(`Вывод результата игрока`, () => {
 
@@ -13,41 +12,25 @@ describe(`Вывод результата игрока`, () => {
     return answers;
   };
 
-  const sortArray = (a, b) => {
-    return b - a;
-  };
-
   let answersArray = [];
 
-  let playerPosition = 0;
-  let successProcent = 0;
-  const statistics = [7, 4, 8, 12, 15, 6];
-
-  const timeoutMessage = `Время вышло! Вы не успели отгадать все мелодии`;
-  const failMessage = `У вас закончились все попытки. Ничего, повезёт в следующий раз!`;
-  const winMessage = `Вы заняли ${playerPosition} место из ${statistics.length + 1} игроков. Это лучше, чем у ${successProcent}% игроков`;
-
-
   it(`Затрачиваемое время превысило максимальное`, () => {
+    const timeoutMessage = `Время вышло! Вы не успели отгадать все мелодии`;
     answersArray = getArray(10, 35, 10);
     assert.strictEqual(resultPlayer(answersArray), timeoutMessage);
   });
 
   it(`Совершенно три ошибки`, () => {
+    const failMessage = `У вас закончились все попытки. Ничего, повезёт в следующий раз!`;
     answersArray = getArray(10, 30, 7);
     assert.strictEqual(resultPlayer(answersArray), failMessage);
   });
 
   it(`Получает результат`, () => {
+    const statistics = [7, 8, 12, 15];
+    const winMessage = `Вы заняли 2 место из 5 игроков. Это лучше, чем у 60% игроков`;
+
     answersArray = getArray(10, 30, 10);
-
-    const score = scoring(answersArray);
-    statistics.push(score);
-    statistics.sort(sortArray);
-
-    playerPosition = statistics.indexOf(score);
-    successProcent = Math.floor(((statistics.length - playerPosition) / statistics.length) * 100);
-
-    assert.strictEqual(resultPlayer(answersArray), winMessage);
+    assert.strictEqual(resultPlayer(answersArray, statistics), winMessage);
   });
 });
