@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import resultPlayer from './result-player';
+import resultPlayer, {attemptFail, timeFail, getWinMessage} from './result-player';
 
 describe(`Вывод результата игрока`, () => {
 
@@ -15,22 +15,19 @@ describe(`Вывод результата игрока`, () => {
   let answersArray = [];
 
   it(`Затрачиваемое время превысило максимальное`, () => {
-    const timeoutMessage = `Время вышло! Вы не успели отгадать все мелодии`;
     answersArray = getArray(10, 35, 10);
-    assert.strictEqual(resultPlayer(answersArray), timeoutMessage);
+    assert.strictEqual(resultPlayer(answersArray), timeFail);
   });
 
   it(`Совершенно три ошибки`, () => {
-    const failMessage = `У вас закончились все попытки. Ничего, повезёт в следующий раз!`;
     answersArray = getArray(10, 30, 7);
-    assert.strictEqual(resultPlayer(answersArray), failMessage);
+    assert.strictEqual(resultPlayer(answersArray), attemptFail);
   });
 
   it(`Получает результат`, () => {
     const statistics = [7, 8, 12, 15];
-    const winMessage = `Вы заняли 2 место из 5 игроков. Это лучше, чем у 60% игроков`;
 
     answersArray = getArray(10, 30, 10);
-    assert.strictEqual(resultPlayer(answersArray, statistics), winMessage);
+    assert.strictEqual(resultPlayer(answersArray, statistics), getWinMessage(2, 5, 60));
   });
 });

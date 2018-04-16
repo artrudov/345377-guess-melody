@@ -1,22 +1,40 @@
 import scoring from "../scoring/scoring";
 
+const MAX_TIME = 300;
+const AMOUNT_FAIL = 2;
+
 const sortArray = (a, b) => {
   return b - a;
+
 };
 
-export default (answersArray, gameStats) => {
+export const timeFail = `Время вышло! Вы не успели отгадать все мелодии`;
+export const attemptFail = `У вас закончились все попытки. Ничего, повезёт в следующий раз!`;
+export const getWinMessage = (position, statistics, percent) => {
+  return `Вы заняли ${position} место из ${statistics} игроков. Это лучше, чем у ${percent}% игроков`;
+};
+
+
+export default (answersArray, statistics) => {
+  const gameStats = statistics;
+
+  let failAnswers = 0;
+
   const allTime = answersArray.reduce((previousValue, currentValue) => {
-    return previousValue + currentValue.time;
+    if (currentValue.answer === false) {
+      failAnswers += 1;
+      return previousValue + currentValue.time;
+    } else {
+      return previousValue + currentValue.time;
+    }
   }, 0);
 
-  if (allTime > 300) {
-    return `Время вышло! Вы не успели отгадать все мелодии`;
+  if (allTime > MAX_TIME) {
+    return timeFail;
   }
 
-  const failAnswers = answersArray.filter((item) => item.answer === false);
-
-  if (failAnswers.length > 2) {
-    return `У вас закончились все попытки. Ничего, повезёт в следующий раз!`;
+  if (failAnswers > AMOUNT_FAIL) {
+    return attemptFail;
   }
 
   const score = scoring(answersArray);
@@ -27,5 +45,5 @@ export default (answersArray, gameStats) => {
   let playerPosition = gameStats.indexOf(score);
   let successPercent = Math.floor(((gameStats.length - playerPosition) / gameStats.length) * 100);
 
-  return `Вы заняли ${playerPosition} место из ${gameStats.length} игроков. Это лучше, чем у ${successPercent}% игроков`;
+  return getWinMessage(playerPosition, gameStats.length, successPercent);
 };

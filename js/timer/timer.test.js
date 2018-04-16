@@ -31,11 +31,11 @@ describe(`Функция таймера`, () => {
 
   it(`Уменьшаем время на 300 секунд`, () => {
     timerForTest = getTimer(300);
-    assert.equal(timerForTest.time, `Таймер достиг нуля`);
+    assert.equal(timerForTest.time, 0);
   });
 
-  it(`Время превысило допустимиые 300, получаем сообщение о конце таймера`, () => {
+  it(`Время превысило допустимиые 300`, () => {
     timerForTest = getTimer(301);
-    assert.equal(timerForTest.time, `Таймер достиг нуля`);
+    assert.equal(timerForTest.time, 0);
   });
 });

@@ -1,9 +1,12 @@
+const MAX_TIME = 30;
+const AMOUNT_ANSWERS = 10;
+
 const getScore = (item) => {
-  if (item.time < 30 && item.answer === true) {
+  if (item.time < MAX_TIME && item.answer === true) {
     return 2;
   }
 
-  if (item.time >= 30 && item.answer === true) {
+  if (item.time >= MAX_TIME && item.answer === true) {
     return 1;
   }
 
@@ -15,7 +18,7 @@ const getScore = (item) => {
 };
 
 export default (answersArray) => {
-  if (answersArray.length < 10) {
+  if (answersArray.length < AMOUNT_ANSWERS) {
     return -1;
   }
 
