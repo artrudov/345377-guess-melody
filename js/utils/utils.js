@@ -5,8 +5,12 @@ export const createElement = (template, classes) => {
   return outer;
 };
 
-const app = document.querySelector(`.app`);
+export const app = document.querySelector(`.app`);
 
 export const changeView = (element) => {
   app.replaceChild(element, app.children[0]);
+};
+
+export const changeLevel = (element) => {
+  app.replaceChild(element, app.children[1]);
 };
