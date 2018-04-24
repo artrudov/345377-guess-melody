@@ -4,10 +4,10 @@ import {app, changeView} from "../../utils/utils";
 import {playerStat, questions} from "../../data/game-data";
 import resultScreen from '../result-screens/result-screen';
 
-const renderFirstLevel = (data) => {
+const renderGameLevel = (data) => {
   if (playerStat.question > 9) {
     app.removeChild(app.children[0]);
-    return changeView(resultScreen(`win`));
+    return changeView(resultScreen(`win`, playerStat));
   }
 
   if (playerStat.mistakes > 2) {
@@ -23,5 +23,5 @@ const renderFirstLevel = (data) => {
 };
 
 export default () => {
-  return renderFirstLevel(questions[playerStat.question]);
+  return renderGameLevel(questions[playerStat.question]);
 };

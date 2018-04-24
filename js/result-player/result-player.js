@@ -29,6 +29,7 @@ export default (answersArray, statistics) => {
   }, 0);
 
   if (allTime > gameRules.MAX_TIME) {
+    console.log(allTime);
     return timeFail;
   }
 

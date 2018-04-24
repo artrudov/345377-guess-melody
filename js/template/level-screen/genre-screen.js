@@ -1,4 +1,4 @@
-import {createElement} from '../../utils/utils';
+import {app, createElement} from '../../utils/utils';
 import {playerStat} from "../../data/game-data";
 import levelScreen from "./level-screen";
 
@@ -28,32 +28,33 @@ export default (data) => {
   const node = template.cloneNode(true);
 
   const sendButton = node.querySelector(`.genre-answer-send`);
-  const inputs = node.querySelectorAll(`input`);
 
-  const answerClickHandler = () => {
+  node.addEventListener(`click`, () => {
     sendButton.disabled = !(document.querySelectorAll(`.genre-answer input:checked`).length);
-  };
-
-  inputs.forEach((item) => {
-    item.addEventListener(`click`, answerClickHandler);
   });
 
   sendButton.addEventListener(`click`, (event) => {
     event.preventDefault();
-    const answersSelect = document.forms[0].querySelectorAll(`:checked`);
+    const answersSelect = Array.from(document.forms[0].querySelectorAll(`:checked`));
     const answersRight = data.answers.filter((answer) => {
       return answer.genre === data.genre;
     });
-    const answersCheck = [...answersSelect].filter((answer) => {
+    const answersCheck = answersSelect.filter((answer) => {
       return answer.value === data.genre;
     });
 
     if (answersCheck.length !== answersRight.length) {
+      const mistakeSection = app.querySelector(`.main-mistakes`);
+      mistakeSection.removeChild(mistakeSection.children[0]);
+      playerStat.answers.push({answer: false, time: 25});
       playerStat.mistakes += 1;
+      playerStat.question += 1;
+      levelScreen();
+    } else {
+      playerStat.answers.push({answer: true, time: 30});
+      playerStat.question += 1;
+      levelScreen();
     }
-
-    playerStat.question += 1;
-    levelScreen();
   });
 
   return node;

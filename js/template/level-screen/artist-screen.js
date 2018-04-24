@@ -1,6 +1,5 @@
-import {createElement} from '../../utils/utils';
+import {app, createElement} from '../../utils/utils';
 import {playerStat} from '../../data/game-data';
-import sectionMistake from '../../template/header/mistake';
 import levelScreen from "./level-screen";
 
 export default (data) => {
@@ -41,12 +40,17 @@ export default (data) => {
       });
 
       if (rightQuestion[0].title !== value) {
+        const mistakeSection = app.querySelector(`.main-mistakes`);
+        mistakeSection.removeChild(mistakeSection.children[0]);
+        playerStat.answers.push({answer: false, time: 25});
         playerStat.mistakes += 1;
-        sectionMistake();
+        playerStat.question += 1;
+        levelScreen();
+      } else {
+        playerStat.answers.push({answer: true, time: 30});
+        playerStat.question += 1;
+        levelScreen();
       }
-
-      playerStat.question += 1;
-      levelScreen();
     });
   };
 

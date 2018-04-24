@@ -1,8 +1,8 @@
+import mistakeSection from "./mistake";
 
-export default () => {
-  const header = document.createElement(`section`);
-  header.className = `main-header`;
-  header.innerHTML = `
+const header = document.createElement(`section`);
+header.className = `main-header`;
+header.innerHTML = `
       <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
         <circle
         cx="390" cy="390" r="370"
@@ -15,8 +15,9 @@ export default () => {
         <span class="timer-value-dots">:</span>
         <span class="timer-value-secs">00</span>
       </div>
-      <div class="main-mistakes"></div>
+      <div class="main-mistakes">${mistakeSection()}</div>
 `;
 
+export default () => {
   return header.cloneNode(true);
 };
