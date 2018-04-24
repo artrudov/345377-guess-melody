@@ -12,7 +12,6 @@ const screens = new Map([
 
 export default (result, stat) => {
   const getTemplate = screens.get(result);
-  console.log(playerStat.answers);
   const template = getTemplate(stat);
   const node = template.cloneNode(true);
   const switchScreen = node.querySelector(`.main-replay`);
