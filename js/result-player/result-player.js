@@ -1,7 +1,6 @@
 import scoring from "../scoring/scoring";
+import {gameRules} from "../data/game-data";
 
-const MAX_TIME = 300;
-const AMOUNT_FAIL = 2;
 
 const sortArray = (a, b) => {
   return b - a;
@@ -29,11 +28,11 @@ export default (answersArray, statistics) => {
     }
   }, 0);
 
-  if (allTime > MAX_TIME) {
+  if (allTime > gameRules.MAX_TIME) {
     return timeFail;
   }
 
-  if (failAnswers > AMOUNT_FAIL) {
+  if (failAnswers > gameRules.AMOUNT_FAIL) {
     return attemptFail;
   }
 
