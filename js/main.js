@@ -1,4 +1,11 @@
-import mainScreen from './template/main-screen/main-screen';
-import {changeView} from './utils/utils';
+import {changeView} from './utils/tools';
+import Welcome from "./template/main-screen/Welcome";
+import gameView from "./template/level-screen/gameView";
 
-changeView(mainScreen());
+const welcomeScreen = new Welcome();
+
+welcomeScreen.element.className = `main main--welcome`;
+changeView(welcomeScreen.element);
+welcomeScreen.onAgreeClick = () => {
+  changeView(gameView);
+};

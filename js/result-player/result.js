@@ -1,4 +1,4 @@
-import scoring from "../scoring/scoring";
+import scoring from "../scoring/score";
 import {gameRules} from "../data/game-data";
 
 
@@ -18,7 +18,6 @@ export default (answersArray, statistics) => {
   const gameStats = statistics;
 
   let failAnswers = 0;
-
   const allTime = answersArray.reduce((previousValue, currentValue) => {
     if (currentValue.answer === false) {
       failAnswers += 1;
@@ -37,10 +36,8 @@ export default (answersArray, statistics) => {
   }
 
   const score = scoring(answersArray);
-
   gameStats.push(score);
   gameStats.sort(sortArray);
-
   let playerPosition = gameStats.indexOf(score);
   let successPercent = Math.floor(((gameStats.length - playerPosition) / gameStats.length) * 100);
 
