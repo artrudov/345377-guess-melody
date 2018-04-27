@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import resultPlayer, {attemptFail, timeFail, getWinMessage} from './result-player';
+import resultPlayer, {attemptFail, timeFail, getWinMessage} from './result';
 import {playerStat} from "../data/game-data";
 
 describe(`Вывод результата игрока`, () => {
