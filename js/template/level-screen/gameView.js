@@ -20,13 +20,11 @@ levelContainer.className = `main`;
 gameContainerElement.appendChild(headerContainer);
 gameContainerElement.appendChild(levelContainer);
 
-const getLevel = () => QUESTION[gameState.level];
-
-const getView = (View) => new View(getLevel());
+const getView = (View) => new View(QUESTION[gameState.level]);
 
 const updateGame = (state) => {
   updateView(headerContainer, new HeaderView(state));
-  const level = (getLevel().type === `artist`) ? getView(ArtistView) : getView(GenreView);
+  const level = (QUESTION[gameState.level].type === `artist`) ? getView(ArtistView) : getView(GenreView);
   level.onAnswer = onUserAnswer;
   updateView(levelContainer, level);
 };
