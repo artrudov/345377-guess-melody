@@ -1,5 +1,6 @@
 import AbstractView from "../AbstractView";
 import {changeView} from "../../utils/tools";
+import gameView from "../level-screen/gameView";
 
 export default class TimeoutView extends AbstractView {
   constructor() {
@@ -18,10 +19,9 @@ export default class TimeoutView extends AbstractView {
   }
 
   bind() {
-    this.element.querySelector(`.main-replay`).onclick = (evt) => {
+    this.element.querySelector(`.main-replay`).addEventListener(`click`, (evt) => {
       evt.preventDefault();
-
-      changeView();
-    };
+      changeView(gameView);
+    });
   }
 }

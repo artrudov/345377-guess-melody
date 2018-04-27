@@ -15,7 +15,7 @@ describe(`Подсчет очков`, () => {
   let answersArray = [];
 
   it(`Игрок ответил на 9 вопросов из 10`, () => {
-    answersArray = getArray(9);
+    answersArray = getArray(8);
     assert.equal(getScore(answersArray), -1);
   });
 

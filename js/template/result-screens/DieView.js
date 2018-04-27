@@ -3,9 +3,8 @@ import {changeView} from '../../utils/tools';
 import gameView from '../../template/level-screen/gameView';
 
 export default class DieView extends AbstractView {
-  constructor(state) {
+  constructor() {
     super();
-    this.state = state;
   }
 
   get template() {
@@ -20,10 +19,9 @@ export default class DieView extends AbstractView {
   }
 
   bind() {
-    this.element.querySelector(`.main-replay`).onclick = (evt) => {
+    this.element.querySelector(`.main-replay`).addEventListener(`click`, (evt) => {
       evt.preventDefault();
-console.log(this.state)
       changeView(gameView);
-    };
+    });
   }
 }

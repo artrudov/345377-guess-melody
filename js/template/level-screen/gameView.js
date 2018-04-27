@@ -22,11 +22,13 @@ gameContainerElement.appendChild(levelContainer);
 
 const getLevel = () => QUESTION[gameState.level];
 
+const getView = (View) => new View(getLevel());
+
 const updateGame = (state) => {
   updateView(headerContainer, new HeaderView(state));
-  const level = (getLevel().type === `artist`) ? new ArtistView(getLevel(state.level)) : new GenreView(getLevel(state.level));
-  updateView(levelContainer, level);
+  const level = (getLevel().type === `artist`) ? getView(ArtistView) : getView(GenreView);
   level.onAnswer = onUserAnswer;
+  updateView(levelContainer, level);
 };
 
 const onUserAnswer = (answer) => {
@@ -46,11 +48,9 @@ const onUserAnswer = (answer) => {
     app.removeChild(app.firstChild);
     changeView(new DieView().element);
   } else {
-    gameState.answers.push({[`answer`]: answer, time: 30});
+    gameState.answers.push({answer, time: 30});
     updateGame(gameState);
   }
-
-
 };
 
 updateGame(gameState);

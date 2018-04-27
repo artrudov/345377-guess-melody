@@ -18,7 +18,6 @@ export default (answersArray, statistics) => {
   const gameStats = statistics;
 
   let failAnswers = 0;
-
   const allTime = answersArray.reduce((previousValue, currentValue) => {
     if (currentValue.answer === false) {
       failAnswers += 1;

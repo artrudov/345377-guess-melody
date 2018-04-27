@@ -283,5 +283,51 @@ export default [
         'genre': `rnb`
       }
     ]
+  },
+  {
+    'type': `genre`,
+    'question': `Выберите все песни в жанре R'n'B`,
+    'genre': `rnb`,
+    'answers': [
+      {
+        'src': `https://www.youtube.com/audiolibrary_download?vid=a127d9b7de8a17cf`,
+        'genre': `rnb`
+      },
+      {
+        'src': `https://www.youtube.com/audiolibrary_download?vid=a127d9b7de8a17cf`,
+        'genre': `blues`
+      },
+      {
+        'src': `https://www.youtube.com/audiolibrary_download?vid=a127d9b7de8a17cf`,
+        'genre': `rock`
+      },
+      {
+        'src': `https://www.youtube.com/audiolibrary_download?vid=a127d9b7de8a17cf`,
+        'genre': `rnb`
+      }
+    ]
+  },
+  {
+    'type': `genre`,
+    'question': `Выберите все песни в жанре R'n'B`,
+    'genre': `rnb`,
+    'answers': [
+      {
+        'src': `https://www.youtube.com/audiolibrary_download?vid=a127d9b7de8a17cf`,
+        'genre': `rnb`
+      },
+      {
+        'src': `https://www.youtube.com/audiolibrary_download?vid=a127d9b7de8a17cf`,
+        'genre': `blues`
+      },
+      {
+        'src': `https://www.youtube.com/audiolibrary_download?vid=a127d9b7de8a17cf`,
+        'genre': `rock`
+      },
+      {
+        'src': `https://www.youtube.com/audiolibrary_download?vid=a127d9b7de8a17cf`,
+        'genre': `rnb`
+      }
+    ]
   }
 ];

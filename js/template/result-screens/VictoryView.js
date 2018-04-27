@@ -27,10 +27,9 @@ export default class VictoryView extends AbstractView {
   }
 
   bind() {
-    this.element.querySelector(`.main-replay`).onclick = (evt) => {
+    this.element.querySelector(`.main-replay`).addEventListener(`click`, (evt) => {
       evt.preventDefault();
-
       changeView(gameView);
-    };
+    });
   }
 }

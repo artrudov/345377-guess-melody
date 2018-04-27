@@ -21,10 +21,10 @@ export default class Welcome extends AbstractView {
   onAgreeClick() {}
 
   bind(element) {
-    element.querySelector(`.main-play`).onclick = (evt) => {
+    element.querySelector(`.main-play`).addEventListener(`click`, (evt) => {
       evt.preventDefault();
 
       this.onAgreeClick();
-    };
+    });
   }
 }

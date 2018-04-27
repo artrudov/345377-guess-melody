@@ -1,6 +1,6 @@
 import {assert} from 'chai';
 import resultPlayer, {attemptFail, timeFail, getWinMessage} from './result';
-import {playerStat} from "../data/game-data";
+import {PLAYER_STAT} from "../data/game-data";
 
 describe(`Вывод результата игрока`, () => {
 
@@ -27,6 +27,6 @@ describe(`Вывод результата игрока`, () => {
 
   it(`Получает результат`, () => {
     answersArray = getArray(10, 30, 10);
-    assert.strictEqual(resultPlayer(answersArray, playerStat.statistics), getWinMessage(2, 5, 60));
+    assert.strictEqual(resultPlayer(answersArray, PLAYER_STAT.statistics), getWinMessage(2, 5, 60));
   });
 });

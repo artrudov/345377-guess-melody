@@ -2,7 +2,7 @@ export const gameRules = {
   AMOUNT_FAIL: 2,
   MAX_TIME: 300,
   LIVES: 3,
-  MAX_LEVEL: 9
+  MAX_LEVEL: 10
 };
 
 export const PLAYER_STAT = {
