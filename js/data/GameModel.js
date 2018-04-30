@@ -1,4 +1,4 @@
-import {PLAYER_STAT, die, changeLevel, tick} from './game-data';
+import {PLAYER_STAT} from './game-data';
 import QUESTIONS from "./questions";
 
 const getLevel = (state) => QUESTIONS[state.level];
@@ -12,16 +12,17 @@ class GameModel {
     return this._state;
   }
 
-  hasNextlevel() {
-    return getLevel(this._state.level + 1) !== void 0;
-  }
-
   nextLevel() {
-    this._state = changeLevel(this._state, this._state.level + 1);
+    this._state.level += 1;
   }
 
   die() {
-    this._state = die(this._state);
+    this._state.mistakes += 1;
+    this._state.lives -= 1;
+  }
+
+  getRoundTime() {
+    return this._state.roundStartTime - this._state.roundEndTime;
   }
 
   restart() {
@@ -37,7 +38,7 @@ class GameModel {
   }
 
   tick() {
-    this._state = tick(this._state);
+    this._state.time -= 1;
   }
 }
 

@@ -22,9 +22,6 @@ class GameScreen {
     this.root.appendChild(this.content.element);
 
     this._interval = null;
-    this.roundStartTime = 0;
-    this.roundStopTime = 0;
-    this.roundTime = 0;
   }
 
   get element() {
@@ -33,13 +30,12 @@ class GameScreen {
 
   stopGame() {
     clearInterval(this._interval);
-    this.roundStopTime = this.model.state.time;
-    this.roundTime = this.roundStartTime - this.roundStopTime;
+    this.model.roundStopTime = this.model.state.time;
   }
 
   startGame() {
     this.changeLevel();
-    this.roundStartTime = this.model.state.time;
+    this.model.roundStartTime = this.model.state.time;
 
     this._interval = setInterval(() => {
       this.model.tick();
@@ -52,7 +48,7 @@ class GameScreen {
 
     switch (answer) {
       case true:
-        this.model.state.answers.push({answer, time: this.roundTime});
+        this.model.state.answers.push({answer, time: this.model.getRoundTime()});
         this.model.nextLevel();
         if (this.model.state.level >= gameRules.MAX_LEVEL) {
           this.endGame(`win`);
@@ -113,7 +109,6 @@ class GameScreen {
     if (win === `timeout`) {
       gameOver = new TimeoutView();
     }
-    // gameOver.onRestart = this.restart.bind(this);
 
     Application.showStats(gameOver);
   }

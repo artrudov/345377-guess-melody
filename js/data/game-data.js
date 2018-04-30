@@ -9,42 +9,11 @@ export const gameRules = {
 export const PLAYER_STAT = {
   mistakes: 0,
   level: 0,
+  roundStartTime: 0,
+  roundEndTime: 0,
+  roundTime: 0,
   lives: 3,
   time: gameRules.MAX_TIME,
   answers: [],
   statistics: [7, 8, 12, 15]
-};
-
-export const changeLevel = (game, level) => {
-  if (typeof level !== `number`) {
-    throw new Error(`Уровен должен быть числом`);
-  }
-
-  if (level < 0) {
-    throw new Error(`Уровень не может быть отрицательным числом`);
-  }
-
-  return Object.assign({}, game, {
-    level
-  });
-};
-
-export const canContinue = (game) => game.mistakes < game.lives;
-
-export const die = (game) => {
-  const mistakes = game.mistakes + 1;
-  const lives = game.lives - 1;
-
-  return Object.assign({}, game, {
-    mistakes,
-    lives
-  });
-};
-
-export const tick = (game) => {
-  const time = game.time - 1;
-
-  return Object.assign({}, game, {
-    time
-  });
 };
