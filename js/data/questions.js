@@ -1,28 +1,5 @@
 export default [
   {
-    'type': `genre`,
-    'question': `Выберите все песни в жанре R'n'B`,
-    'genre': `rnb`,
-    'answers': [
-      {
-        'src': `https://www.youtube.com/audiolibrary_download?vid=bcbe5be936a32fb1`,
-        'genre': `rnb`
-      },
-      {
-        'src': `https://www.youtube.com/audiolibrary_download?vid=bcbe5be936a32fb1`,
-        'genre': `blues`
-      },
-      {
-        'src': `https://www.youtube.com/audiolibrary_download?vid=bcbe5be936a32fb1`,
-        'genre': `rock`
-      },
-      {
-        'src': `https://www.youtube.com/audiolibrary_download?vid=bcbe5be936a32fb1`,
-        'genre': `rnb`
-      }
-    ]
-  },
-  {
     'type': `artist`,
     'question': `Кто исполняет эту песню?`,
     'src': `https://www.youtube.com/audiolibrary_download?vid=dfb828f40096184c`,
@@ -53,6 +30,29 @@ export default [
         },
         'title': `Кровосток`,
         'isCorrect': true
+      }
+    ]
+  },
+  {
+    'type': `genre`,
+    'question': `Выберите все песни в жанре R'n'B`,
+    'genre': `rnb`,
+    'answers': [
+      {
+        'src': `https://www.youtube.com/audiolibrary_download?vid=bcbe5be936a32fb1`,
+        'genre': `rnb`
+      },
+      {
+        'src': `https://www.youtube.com/audiolibrary_download?vid=bcbe5be936a32fb1`,
+        'genre': `blues`
+      },
+      {
+        'src': `https://www.youtube.com/audiolibrary_download?vid=bcbe5be936a32fb1`,
+        'genre': `rock`
+      },
+      {
+        'src': `https://www.youtube.com/audiolibrary_download?vid=bcbe5be936a32fb1`,
+        'genre': `rnb`
       }
     ]
   },
