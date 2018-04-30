@@ -7,6 +7,8 @@ export const getMinute = function (time) {
   return Math.trunc(time / SEC_PER_MIN);
 };
 
+const RADIUS = 370;
+
 const drawLives = (state) => {
   return `
       ${new Array(state).fill(`
@@ -17,7 +19,7 @@ export default class HeaderView extends AbstractView {
   constructor(state) {
     super();
     this.state = state;
-    this.lengthRound = Math.round(2 * Math.PI * 370);
+    this.lengthRound = Math.round(2 * Math.PI * RADIUS);
     this.shadowRound = this.lengthRound / (gameRules.MAX_TIME);
     this.timerView = this.shadowRound * (gameRules.MAX_TIME - this.state.time);
   }
