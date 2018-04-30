@@ -2,7 +2,8 @@ export const gameRules = {
   AMOUNT_FAIL: 2,
   MAX_TIME: 300,
   LIVES: 3,
-  MAX_LEVEL: 10
+  MAX_LEVEL: 10,
+  QUICK_TIME: 30
 };
 
 export const PLAYER_STAT = {
@@ -32,8 +33,18 @@ export const canContinue = (game) => game.mistakes < game.lives;
 
 export const die = (game) => {
   const mistakes = game.mistakes + 1;
+  const lives = game.lives - 1;
 
   return Object.assign({}, game, {
-    mistakes
+    mistakes,
+    lives
+  });
+};
+
+export const tick = (game) => {
+  const time = game.time - 1;
+
+  return Object.assign({}, game, {
+    time
   });
 };

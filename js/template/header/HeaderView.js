@@ -1,8 +1,8 @@
 import AbstractView from "../AbstractView";
 
-const SEC_PER_MIN = 60;
+export const SEC_PER_MIN = 60;
 
-const getMinute = function (time) {
+export const getMinute = function (time) {
   return Math.trunc(time / SEC_PER_MIN);
 };
 

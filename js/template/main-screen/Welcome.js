@@ -1,4 +1,5 @@
 import AbstractView from "../AbstractView";
+import Application from "../../Application";
 
 export default class Welcome extends AbstractView {
   constructor() {
@@ -18,13 +19,11 @@ export default class Welcome extends AbstractView {
         </p>`;
   }
 
-  onAgreeClick() {}
-
   bind(element) {
     element.querySelector(`.main-play`).addEventListener(`click`, (evt) => {
       evt.preventDefault();
 
-      this.onAgreeClick();
+      Application.showGame();
     });
   }
 }

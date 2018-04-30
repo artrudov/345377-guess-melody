@@ -1,6 +1,5 @@
 import AbstractView from '../AbstractView';
-import {changeView} from '../../utils/tools';
-import gameView from '../../template/level-screen/gameView';
+import Application from "../../Application";
 
 export default class DieView extends AbstractView {
   constructor() {
@@ -9,19 +8,17 @@ export default class DieView extends AbstractView {
 
   get template() {
     return `
-    <div class='main main--result'>
     <section class='logo' title='Угадай мелодию'><h1>Угадай мелодию</h1></section>
 
     <h2 class='title'>Какая жалость!</h2>
     <div class='main-stat'>У вас закончились все попытки.<br>Ничего, повезёт в следующий раз!</div>
-    <span role='button' tabindex='0' class='main-replay'>Попробовать ещё раз</span>
-    </div>`;
+    <span role='button' tabindex='0' class='main-replay'>Попробовать ещё раз</span>`;
   }
 
   bind() {
     this.element.querySelector(`.main-replay`).addEventListener(`click`, (evt) => {
       evt.preventDefault();
-      changeView(gameView);
+      Application.showWelcome();
     });
   }
 }

@@ -8,13 +8,12 @@ export default class ArtistView extends AbstractView {
 
   get template() {
     return `
-    <div class="main--level main--level-genre">
      <div class="main-wrap">
       <h2 class="title main-title">${this.level.question}</h2>
       <div class="player-wrapper">
         <div class="player">
           <audio src="${this.level.src}"></audio>
-          <button class="player-control player-control--pause"></button>
+          <button class="player-control"></button>
           <div class="player-track">
             <span class="player-status"></span>
           </div>
@@ -36,13 +35,33 @@ export default class ArtistView extends AbstractView {
     `;
   }
 
-  onAnswer() {}
+  onAnswer() {
+  }
 
   bind() {
     const answersElement = this.element.querySelector(`.main-list`);
 
+    const playerControl = this.element.querySelector(`.player-control`);
+    const audio = this.element.querySelector(`audio`);
+
+    playerControl.addEventListener(`click`, (evt) => {
+      evt.preventDefault();
+
+      if (playerControl.classList.contains(`player-control--pause`)) {
+        audio.pause();
+        playerControl.classList.toggle(`player-control--pause`);
+      } else {
+        audio.play();
+        playerControl.classList.toggle(`player-control--pause`);
+      }
+    });
+
     answersElement.addEventListener(`click`, (evt) => {
       evt.preventDefault();
+      if (!evt.target.getAttribute(`data`)) {
+        return;
+      }
+
       const answerIndex = evt.target.getAttribute(`data`);
       const answer = this.level.answers[answerIndex].isCorrect;
       this.onAnswer(answer);
