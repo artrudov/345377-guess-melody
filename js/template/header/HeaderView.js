@@ -1,4 +1,5 @@
 import AbstractView from "../AbstractView";
+import {gameRules} from "../../data/game-data";
 
 export const SEC_PER_MIN = 60;
 
@@ -16,15 +17,19 @@ export default class HeaderView extends AbstractView {
   constructor(state) {
     super();
     this.state = state;
+    this.lengthRound = Math.round(2 * Math.PI * 370);
+    this.shadowRound = this.lengthRound / (gameRules.MAX_TIME);
+    this.timerView = this.shadowRound * (gameRules.MAX_TIME - this.state.time);
   }
 
   get template() {
     return `
-        <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
+        <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780" stroke-dasharray="${this.lengthRound}" 
+        stroke-dashoffset="${this.timerView}">
           <circle
           cx="390" cy="390" r="370"
           class="timer-line"
-          style="filter: url(#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
+          style="filter: url(#blur);  transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
         </svg>
         
         <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml">
