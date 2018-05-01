@@ -1,3 +1,3 @@
 import Application from "./Application";
 
-Application.showWelcome();
+Application.start();

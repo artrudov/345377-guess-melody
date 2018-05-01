@@ -1,15 +1,17 @@
 import {PLAYER_STAT} from './game-data';
-import QUESTIONS from "./questions";
-
-const getLevel = (state) => QUESTIONS[state.level];
 
 class GameModel {
-  constructor() {
+  constructor(data) {
+    this.data = data;
     this.restart();
   }
 
   get state() {
     return this._state;
+  }
+
+  getLevel() {
+    return this.data[this._state.level];
   }
 
   nextLevel() {
@@ -30,11 +32,11 @@ class GameModel {
   }
 
   getCurrentLevel() {
-    return getLevel(this._state);
+    return this.getLevel(this._state);
   }
 
   getType() {
-    return QUESTIONS[this._state.level].type;
+    return this.data[this._state.level].type;
   }
 
   tick() {
