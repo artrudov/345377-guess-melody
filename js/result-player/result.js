@@ -9,7 +9,7 @@ const sortArray = (a, b) => {
 export const timeFail = `Время вышло! Вы не успели отгадать все мелодии`;
 export const attemptFail = `У вас закончились все попытки. Ничего, повезёт в следующий раз!`;
 export const getWinMessage = (position, statistics, percent) => {
-  return `Вы заняли ${position} место из ${statistics} игроков. Это лучше, чем у ${percent}% игроков`;
+  return `Вы заняли ${position} место из ${statistics}. Это лучше, чем у ${percent}% игроков`;
 };
 
 export default (answer, statistics) => {
