@@ -3,19 +3,13 @@ import GameModel from "./data/GameModel";
 import LoadView from "./template/loading-screen/LoadView";
 import GameScreen from "./template/GameScreen";
 import ErrorView from "./template/error-screen/ErrorView";
+import Loader from "./data/Loader";
+import VictoryView from "./template/result-screens/VictoryView";
 
 const main = document.querySelector(`.main`);
 const changeView = (element) => {
   main.innerHTML = ``;
   main.appendChild(element);
-};
-
-const checkStatus = (response) => {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  } else {
-    throw new Error(`${response.status}: ${response.statusText}`);
-  }
 };
 
 let gameData;
@@ -25,11 +19,9 @@ export default class Application {
     const splash = new LoadView();
     changeView(splash.element);
     splash.start();
-    window.fetch(`https://es.dump.academy/guess-melody/questions`)
-        .then(checkStatus)
-        .then((response) => response.json())
-        .then(Application.showWelcome)
-        .catch(Application.showError)
+    Loader.loadData()
+        .then(this.showWelcome)
+        .catch(this.showError)
         .then(() => splash.stop());
   }
 
@@ -46,9 +38,23 @@ export default class Application {
     gameScreen.startGame();
   }
 
-  static showStats(view) {
-    view.element.className = `main main--result`;
-    changeView(view.element);
+  static showStats(model) {
+    const loader = new LoadView();
+    changeView(loader.element);
+    Loader.saveResults(model.answer)
+        .then(() => Loader.loadResults())
+        .then((data) => {
+          const victory = new VictoryView(model, data);
+          victory.element.className = `main main--result`;
+          changeView(victory.element);
+        })
+        .catch(this.showError);
+  }
+
+  static showEnd(view) {
+    const endScreen = view;
+    endScreen.element.className = `main main--result`;
+    changeView(endScreen.element);
   }
 
   static showError(error) {

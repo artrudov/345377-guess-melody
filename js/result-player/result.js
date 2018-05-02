@@ -4,7 +4,6 @@ import {gameRules} from "../data/game-data";
 
 const sortArray = (a, b) => {
   return b - a;
-
 };
 
 export const timeFail = `Время вышло! Вы не успели отгадать все мелодии`;
@@ -13,21 +12,12 @@ export const getWinMessage = (position, statistics, percent) => {
   return `Вы заняли ${position} место из ${statistics} игроков. Это лучше, чем у ${percent}% игроков`;
 };
 
+export default (answer, statistics) => {
+  const gameStats = statistics.map((item) => scoring(item.answers));
 
-export default (answersArray, statistics) => {
-  const gameStats = statistics;
+  let failAnswers = answer.answers.filter((item) => item === -1).length;
 
-  let failAnswers = 0;
-  const allTime = answersArray.reduce((previousValue, currentValue) => {
-    if (currentValue.answer === false) {
-      failAnswers += 1;
-      return previousValue + currentValue.time;
-    } else {
-      return previousValue + currentValue.time;
-    }
-  }, 0);
-
-  if (allTime > gameRules.MAX_TIME) {
+  if (answer.time > gameRules.MAX_TIME) {
     return timeFail;
   }
 
@@ -35,10 +25,11 @@ export default (answersArray, statistics) => {
     return attemptFail;
   }
 
-  const score = scoring(answersArray);
+  const score = scoring(answer.answers);
+
   gameStats.push(score);
   gameStats.sort(sortArray);
-  let playerPosition = gameStats.indexOf(score);
+  let playerPosition = gameStats.indexOf(score) + 1;
   let successPercent = Math.floor(((gameStats.length - playerPosition) / gameStats.length) * 100);
 
   return getWinMessage(playerPosition, gameStats.length, successPercent);

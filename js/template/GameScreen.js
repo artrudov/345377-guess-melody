@@ -1,7 +1,6 @@
 import ArtistView from './level-screen/ArtistView';
 import GenreView from './level-screen/GenreView';
 import HeaderView from './header/HeaderView';
-import VictoryView from './result-screens/VictoryView';
 import DieView from "./result-screens/DieView";
 import TimeoutView from "./result-screens/TimeoutView";
 import {gameRules} from "../data/game-data";
@@ -30,12 +29,12 @@ class GameScreen {
 
   stopGame() {
     clearInterval(this._interval);
-    this.model.roundStopTime = this.model.state.time;
+    this.model.state.roundEndTime = this.model._state.time;
   }
 
   startGame() {
     this.changeLevel();
-    this.model.roundStartTime = this.model.state.time;
+    this.model.state.roundStartTime = this.model._state.time;
 
     this._interval = setInterval(() => {
       this.model.tick();
@@ -48,20 +47,24 @@ class GameScreen {
 
     switch (answer) {
       case true:
-        this.model.state.answers.push({answer, time: this.model.getRoundTime()});
+        this.model.state.answer.answers.push(this.model.getRoundTime());
         this.model.nextLevel();
         if (this.model.state.level >= gameRules.MAX_LEVEL) {
-          this.endGame(`win`);
+          this.model.state.answer.time = gameRules.MAX_TIME - this.model._state.time;
+          Application.showStats(this.model._state);
         } else {
           this.startGame();
         }
         break;
       case false:
-        this.model.state.answers.push({answer, time: this.roundTime});
+        this.model.state.answer.answers.push(-1);
         this.model.die();
         this.model.nextLevel();
         if (this.model.state.lives <= 0) {
           this.endGame(`die`);
+        } else if (this.model.state.level >= gameRules.MAX_LEVEL) {
+          this.model.state.answer.time = gameRules.MAX_TIME - this.model._state.time;
+          Application.showStats(this.model._state);
         } else {
           this.startGame();
         }
@@ -69,16 +72,7 @@ class GameScreen {
     }
   }
 
-  restart(continueGame) {
-    if (!continueGame) {
-      this.model.restart();
-    }
-
-    this.startGame();
-  }
-
   updateHeader() {
-
     const header = new HeaderView(this.model.state);
     this.root.replaceChild(header.element, this.header.element);
     this.header = header;
@@ -95,22 +89,20 @@ class GameScreen {
     this.changeContentView(level);
   }
 
-  endGame(win) {
+  endGame(status) {
     let gameOver = ``;
 
-    if (win === `win`) {
-      gameOver = new VictoryView(this.model.state);
-    }
-
-    if (win === `die`) {
+    if (status === `die`) {
       gameOver = new DieView();
+      Application.showEnd(gameOver);
     }
 
-    if (win === `timeout`) {
+    if (status === `timeout`) {
       gameOver = new TimeoutView();
+      Application.showEnd(gameOver);
     }
 
-    Application.showStats(gameOver);
+    this.model.restart();
   }
 
   changeContentView(view) {

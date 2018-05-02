@@ -6,13 +6,13 @@ import {gameRules} from "../../data/game-data";
 import {getMinute, SEC_PER_MIN} from "../header/HeaderView";
 
 export default class VictoryView extends AbstractView {
-  constructor(state) {
+  constructor(state, stats) {
     super();
-    this.result = state.answers;
-    this.statistics = state.statistics;
+    this.result = state.answer;
     this.mistakes = state.mistakes;
-    this.time = gameRules.MAX_TIME - state.time;
-    this.quickAnswers = this.result.filter((item) => item.time < gameRules.QUICK_TIME);
+    this.time = state.answer.time;
+    this.statistics = stats;
+    this.quickAnswers = this.result.answers.filter((item) => item < gameRules.QUICK_TIME && item !== -1);
   }
 
   get template() {
@@ -23,7 +23,7 @@ export default class VictoryView extends AbstractView {
     <div class="main-stat">За&nbsp;
     ${getMinute(this.time)}&nbsp;минуты и 
     ${this.time - getMinute(this.time) * SEC_PER_MIN}&nbsp;секунд
-      <br>вы&nbsp;набрали ${scoring(this.result)} баллов (${this.quickAnswers.length} быстрых)
+      <br>вы&nbsp;набрали ${scoring(this.result.answers)} баллов (${this.quickAnswers.length} быстрых)
       <br>совершив ${this.mistakes} ошибки</div>
     <span class="main-comparison">${playerResult(this.result, this.statistics)}</span>
     <span role="button" tabindex="0" class="main-replay">Сыграть ещё раз</span>`;
@@ -32,7 +32,8 @@ export default class VictoryView extends AbstractView {
   bind() {
     this.element.querySelector(`.main-replay`).addEventListener(`click`, (evt) => {
       evt.preventDefault();
-      Application.showWelcome();
+
+      Application.showGame();
     });
   }
 }

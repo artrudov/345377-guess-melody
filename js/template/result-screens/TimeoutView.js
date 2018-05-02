@@ -18,7 +18,7 @@ export default class TimeoutView extends AbstractView {
   bind() {
     this.element.querySelector(`.main-replay`).addEventListener(`click`, (evt) => {
       evt.preventDefault();
-      Application.showWelcome();
+      Application.showGame();
     });
   }
 }

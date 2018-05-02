@@ -18,7 +18,8 @@ export default class DieView extends AbstractView {
   bind() {
     this.element.querySelector(`.main-replay`).addEventListener(`click`, (evt) => {
       evt.preventDefault();
-      Application.showWelcome();
+
+      Application.showGame();
     });
   }
 }

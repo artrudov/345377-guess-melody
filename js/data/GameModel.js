@@ -28,7 +28,7 @@ class GameModel {
   }
 
   restart() {
-    this._state = PLAYER_STAT;
+    this._state = Object.assign({}, PLAYER_STAT);
   }
 
   getCurrentLevel() {

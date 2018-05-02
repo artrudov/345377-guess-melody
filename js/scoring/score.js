@@ -1,24 +1,23 @@
-const MAX_TIME = 30;
-const AMOUNT_ANSWERS = 10;
+import {gameRules} from "../data/game-data";
 
 const getScore = (item) => {
-  if (item.time < MAX_TIME && item.answer === true) {
+  if (item === -1) {
+    return -2;
+  }
+
+  if (item < gameRules.QUICK_TIME) {
     return 2;
   }
 
-  if (item.time >= MAX_TIME && item.answer === true) {
+  if (item >= gameRules.QUICK_TIME) {
     return 1;
-  }
-
-  if (item.answer === false) {
-    return -2;
   }
 
   return 0;
 };
 
 export default (answersArray) => {
-  if (answersArray.length < AMOUNT_ANSWERS) {
+  if (answersArray.length < gameRules.MAX_LEVEL) {
     return -1;
   }
 
