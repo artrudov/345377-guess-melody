@@ -1,45 +1,40 @@
 import scoring from "../scoring/score";
-import {gameRules} from "../data/game-data";
+import {GameRules} from "../data/game-data";
+
+export const ResultMessage = {
+  TIME_FAIL: `Время вышло! Вы не успели отгадать все мелодии`,
+  ATTEMPT_FAIL: `У вас закончились все попытки. Ничего, повезёт в следующий раз!`,
+};
+
+export const getWinMessage = (position, statistics, percent) => {
+  return `Вы заняли ${position} место из ${statistics}. Это лучше, чем у ${percent}% игроков`;
+};
 
 
 const sortArray = (a, b) => {
   return b - a;
-
 };
 
-export const timeFail = `Время вышло! Вы не успели отгадать все мелодии`;
-export const attemptFail = `У вас закончились все попытки. Ничего, повезёт в следующий раз!`;
-export const getWinMessage = (position, statistics, percent) => {
-  return `Вы заняли ${position} место из ${statistics} игроков. Это лучше, чем у ${percent}% игроков`;
-};
-
-
-export default (answersArray, statistics) => {
-  const gameStats = statistics;
-
-  let failAnswers = 0;
-  const allTime = answersArray.reduce((previousValue, currentValue) => {
-    if (currentValue.answer === false) {
-      failAnswers += 1;
-      return previousValue + currentValue.time;
-    } else {
-      return previousValue + currentValue.time;
-    }
-  }, 0);
-
-  if (allTime > gameRules.MAX_TIME) {
-    return timeFail;
+export default (answer, statistics) => {
+  if (answer.time > GameRules.MAX_TIME) {
+    return ResultMessage.TIME_FAIL;
   }
 
-  if (failAnswers > gameRules.AMOUNT_FAIL) {
-    return attemptFail;
+  let failAnswers = answer.answers.filter((item) => item === -1).length;
+
+  if (failAnswers > GameRules.AMOUNT_FAIL) {
+    return ResultMessage.ATTEMPT_FAIL;
   }
 
-  const score = scoring(answersArray);
+  const gameStats = statistics.map((item) => scoring(item.answers));
+
+  const score = scoring(answer.answers);
+
   gameStats.push(score);
   gameStats.sort(sortArray);
-  let playerPosition = gameStats.indexOf(score);
+  let playerPosition = gameStats.indexOf(score) + 1;
   let successPercent = Math.floor(((gameStats.length - playerPosition) / gameStats.length) * 100);
 
   return getWinMessage(playerPosition, gameStats.length, successPercent);
 };
+

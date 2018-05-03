@@ -1,5 +1,5 @@
-import AbstractView from "../AbstractView";
-import Application from "../../Application";
+import AbstractView from "../abstract-view";
+import Application from "../../application";
 
 export default class TimeoutView extends AbstractView {
   constructor() {
@@ -18,7 +18,7 @@ export default class TimeoutView extends AbstractView {
   bind() {
     this.element.querySelector(`.main-replay`).addEventListener(`click`, (evt) => {
       evt.preventDefault();
-      Application.showWelcome();
+      Application.showGame();
     });
   }
 }

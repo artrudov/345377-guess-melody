@@ -1,32 +1,51 @@
 import {assert} from 'chai';
-import resultPlayer, {attemptFail, timeFail, getWinMessage} from './result';
-import {PLAYER_STAT} from "../data/game-data";
+import resultPlayer, {ResultMessage, getWinMessage} from './result';
 
 describe(`Вывод результата игрока`, () => {
 
-  const getArray = (arrayLength, timeAnswer, range) => {
-    let answers = new Array(arrayLength);
-    let trueAnswer = {answer: true, time: timeAnswer};
-    let failAnswer = {answer: false, time: timeAnswer};
-    answers.fill(trueAnswer, 0, range);
-    answers.fill(failAnswer, range);
-    return answers;
+  let answer = {
+    time: 0,
+    answers: []
   };
 
-  let answersArray = [];
-
   it(`Затрачиваемое время превысило максимальное`, () => {
-    answersArray = getArray(10, 35, 10);
-    assert.strictEqual(resultPlayer(answersArray), timeFail);
+    answer = {
+      time: 315,
+      answers: [35, 35, 30, 35, 30, 30, 30, 30, 30, 30]
+    };
+    assert.strictEqual(resultPlayer(answer), ResultMessage.TIME_FAIL);
   });
 
   it(`Совершенно три ошибки`, () => {
-    answersArray = getArray(10, 30, 7);
-    assert.strictEqual(resultPlayer(answersArray), attemptFail);
+    answer = {
+      time: 240,
+      answers: [-1, -1, -1, 30, 30, 30, 30, 30, 30, 30]
+    };
+    assert.strictEqual(resultPlayer(answer), ResultMessage.ATTEMPT_FAIL);
   });
 
   it(`Получает результат`, () => {
-    answersArray = getArray(10, 30, 10);
-    assert.strictEqual(resultPlayer(answersArray, PLAYER_STAT.statistics), getWinMessage(2, 5, 60));
+    answer = {
+      time: 300,
+      answers: [30, 30, 30, 30, 30, 30, 30, 30, 30, 30]
+    };
+    assert.strictEqual(resultPlayer(answer, [
+      {
+        time: 300,
+        answers: [30, 30, 30, 30, 30, 30, 30, 30, 30, 30]
+      },
+      {
+        time: 300,
+        answers: [30, 30, 30, 30, 30, 30, 30, 30, 30, 30]
+      },
+      {
+        time: 300,
+        answers: [30, 30, 30, 30, 30, 30, 30, 30, 30, 30]
+      },
+      {
+        time: 300,
+        answers: [30, 30, 30, 30, 30, 30, 30, 30, 30, 30]
+      }
+    ]), getWinMessage(1, 5, 80));
   });
 });
