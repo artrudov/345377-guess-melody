@@ -1,10 +1,10 @@
 import ArtistView from './level-screen/artist-view';
 import GenreView from './level-screen/genre-view';
 import HeaderView from './header/header-view';
-import DieView from "./result-screens/die-view";
-import TimeoutView from "./result-screens/timeout-view";
-import {GameRules} from "../data/game-data";
-import Application from "../application";
+import DieView from './result-screens/die-view';
+import TimeoutView from './result-screens/timeout-view';
+import {GameRules} from '../data/game-data';
+import Application from '../application';
 
 const ROUND_FAIL = -1;
 const END_GAME = 0;

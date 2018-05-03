@@ -1,10 +1,10 @@
-import WelcomeView from "./template/main-screen/welcome-view";
-import GameModel from "./data/game-model";
-import LoadView from "./template/loading-screen/load-view";
-import GameScreen from "./template/game-screen";
-import ErrorView from "./template/error-screen/error-view";
-import Loader from "./data/loader";
-import VictoryView from "./template/result-screens/victory-view";
+import WelcomeView from './template/main-screen/welcome-view';
+import GameModel from './data/game-model';
+import LoadView from './template/loading-screen/load-view';
+import GameScreen from './template/game-screen';
+import ErrorView from './template/error-screen/error-view';
+import Loader from './data/loader';
+import VictoryView from './template/result-screens/victory-view';
 
 const main = document.querySelector(`.main`);
 const changeView = (element) => {

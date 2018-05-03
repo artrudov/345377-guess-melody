@@ -1,5 +1,5 @@
-import AbstractView from "../abstract-view";
-import {GameRules} from "../../data/game-data";
+import AbstractView from '../abstract-view';
+import {GameRules} from '../../data/game-data';
 
 const RADIUS = 370;
 

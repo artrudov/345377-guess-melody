@@ -1,9 +1,9 @@
-import AbstractView from "../abstract-view";
-import scoring from "../../scoring/score";
-import playerResult from "../../result-player/result";
-import Application from "../../application";
-import {GameRules} from "../../data/game-data";
-import {getMinute} from "../header/header-view";
+import AbstractView from '../abstract-view';
+import scoring from '../../scoring/score';
+import playerResult from '../../result-player/result';
+import Application from '../../application';
+import {GameRules} from '../../data/game-data';
+import {getMinute} from '../header/header-view';
 
 const COUNT_POINT = 2;
 const FAIL_ANSWER = -1;

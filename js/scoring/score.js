@@ -1,4 +1,4 @@
-import {GameRules} from "../data/game-data";
+import {GameRules} from '../data/game-data';
 
 const getScore = (item) => {
   if (item === -1) {

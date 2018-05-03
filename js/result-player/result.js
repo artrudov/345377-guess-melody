@@ -1,5 +1,5 @@
-import scoring from "../scoring/score";
-import {GameRules} from "../data/game-data";
+import scoring from '../scoring/score';
+import {GameRules} from '../data/game-data';
 
 export const ResultMessage = {
   TIME_FAIL: `Время вышло! Вы не успели отгадать все мелодии`,

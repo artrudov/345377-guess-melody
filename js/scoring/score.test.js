@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import getScore from "./score";
+import getScore from './score';
 
 describe(`Подсчет очков`, () => {
 
