@@ -6,6 +6,10 @@ import TimeoutView from "./result-screens/timeout-view";
 import {GameRules} from "../data/game-data";
 import Application from "../application";
 
+const ROUND_FAIL = -1;
+const END_GAME = 0;
+const TIMER_INTERVAL = 1000;
+
 const getCurrentView = (state) => {
   return state.getType() === `artist` ? new ArtistView(state.getCurrentLevel()) : new GenreView(state.getCurrentLevel());
 };
@@ -49,37 +53,34 @@ class GameScreen {
         this.header.setColorTime();
       }
 
-      if (this.model.state.time <= 0) {
+      if (this.model.state.time <= END_GAME) {
         this.stopGame();
         this.endGame(`timeout`);
       }
-    }, 1000);
+    }, TIMER_INTERVAL);
   }
 
   answer(answer) {
     this.stopGame();
+    this.model.nextLevel();
 
     switch (answer) {
       case true:
         this.model.state.answer.answers.push(this.model.getRoundTime());
-        this.model.nextLevel();
-        if (this.model.state.level >= GameRules.MAX_LEVEL) {
-          this.model.state.answer.time = GameRules.MAX_TIME - this.model._state.time;
-          Application.showStats(this.model._state);
+        if (this.checkLevel()) {
+          this.showStats();
         } else {
           this.startGame();
         }
         break;
       case false:
-        this.model.state.answer.answers.push(-1);
+        this.model.state.answer.answers.push(ROUND_FAIL);
         this.model.die();
         this.updateHeader();
-        this.model.nextLevel();
-        if (this.model.state.lives <= 0) {
+        if (this.model.state.lives <= END_GAME) {
           this.endGame(`die`);
-        } else if (this.model.state.level >= GameRules.MAX_LEVEL) {
-          this.model.state.answer.time = GameRules.MAX_TIME - this.model._state.time;
-          Application.showStats(this.model._state);
+        } else if (this.checkLevel()) {
+          this.showStats();
         } else {
           this.startGame();
         }
@@ -99,6 +100,15 @@ class GameScreen {
     const level = getCurrentView(this.model);
     level.onAnswer = this.answer.bind(this);
     this.changeContentView(level);
+  }
+
+  checkLevel() {
+    return this.model.state.level >= GameRules.MAX_LEVEL;
+  }
+
+  showStats() {
+    this.model.state.answer.time = GameRules.MAX_TIME - this.model._state.time;
+    Application.showStats(this.model._state);
   }
 
   endGame(status) {

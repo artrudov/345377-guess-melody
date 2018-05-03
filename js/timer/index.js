@@ -1,13 +1,18 @@
-export default (time) => {
+const TimerWork = {
+  TIME: 1,
+  END: 0
+};
+
+export default (TIME) => {
   return {
-    time,
+    TIME,
     tick() {
-      if (this.time > 1) {
-        this.time -= 1;
-        return this.time;
+      if (this.TIME > TimerWork.TIME) {
+        this.TIME -= TimerWork.TIME;
+        return this.TIME;
       } else {
-        this.time = 0;
-        return this.time;
+        this.TIME = TimerWork.END;
+        return this.TIME;
       }
     }
   };

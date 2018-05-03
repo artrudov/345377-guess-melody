@@ -5,6 +5,9 @@ import Application from "../../application";
 import {GameRules} from "../../data/game-data";
 import {getMinute} from "../header/header-view";
 
+const COUNT_POINT = 2;
+const FAIL_ANSWER = -1;
+
 const NumEnding = {
   MULTIPLE_HUNDRED: 100,
   MULTIPLE_TEN: 10,
@@ -47,8 +50,8 @@ export default class VictoryView extends AbstractView {
     this.score = scoring(this.result.answers);
     this.minutes = getMinute(this.time);
     this.seconds = this.time - this.minutes * GameRules.SEC_PER_MIN;
-    this.quickAnswers = this.result.answers.filter((item) => item < GameRules.QUICK_TIME && item !== -1);
-    this.quick = this.quickAnswers.length * 2 - this.mistakes * 2;
+    this.quickAnswers = this.result.answers.filter((item) => item < GameRules.QUICK_TIME && item !== FAIL_ANSWER);
+    this.quick = this.quickAnswers.length * COUNT_POINT - this.mistakes * COUNT_POINT;
   }
 
   get template() {
