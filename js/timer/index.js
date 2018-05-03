@@ -3,16 +3,16 @@ const TimerWork = {
   END: 0
 };
 
-export default (TIME) => {
+export default (time) => {
   return {
-    TIME,
+    time,
     tick() {
-      if (this.TIME > TimerWork.TIME) {
-        this.TIME -= TimerWork.TIME;
-        return this.TIME;
+      if (this.time > TimerWork.TIME) {
+        this.time -= TimerWork.TIME;
+        return this.time;
       } else {
-        this.TIME = TimerWork.END;
-        return this.TIME;
+        this.time = TimerWork.END;
+        return this.time;
       }
     }
   };
