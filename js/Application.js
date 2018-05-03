@@ -39,8 +39,9 @@ export default class Application {
   }
 
   static showStats(model) {
-    const loader = new LoadView();
-    changeView(loader.element);
+    const splash = new LoadView();
+    changeView(splash.element);
+    splash.start();
     Loader.saveResults(model.answer)
         .then(() => Loader.loadResults())
         .then((data) => {
@@ -48,7 +49,8 @@ export default class Application {
           victory.element.className = `main main--result`;
           changeView(victory.element);
         })
-        .catch(this.showError);
+        .catch(this.showError)
+        .then(() => splash.stop());
   }
 
   static showEnd(view) {

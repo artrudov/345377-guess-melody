@@ -5,14 +5,21 @@ import Application from "../../Application";
 import {gameRules} from "../../data/game-data";
 import {getMinute} from "../header/HeaderView";
 
+const numEnding = {
+  MULTIPLE_HUNDRED: 100,
+  MULTIPLE_TEN: 10,
+  GREATER_THEN_ELEVEN: 11,
+  LESS_THEN_NINETEEN: 19
+};
+
 const getNumEnding = (iNumber, aEndings) => {
   let sEnding;
   let i;
-  iNumber = iNumber % 100;
-  if (iNumber >= 11 && iNumber <= 19) {
+  iNumber = iNumber % numEnding.MULTIPLE_HUNDRED;
+  if (iNumber >= numEnding.GREATER_THEN_ELEVEN && iNumber <= numEnding.LESS_THEN_NINETEEN) {
     sEnding = aEndings[2];
   } else {
-    i = iNumber % 10;
+    i = iNumber % numEnding.MULTIPLE_TEN;
     switch (i) {
       case (1):
         sEnding = aEndings[0];
@@ -41,6 +48,7 @@ export default class VictoryView extends AbstractView {
     this.minutes = getMinute(this.time);
     this.seconds = this.time - this.minutes * gameRules.SEC_PER_MIN;
     this.quickAnswers = this.result.answers.filter((item) => item < gameRules.QUICK_TIME && item !== -1);
+    this.quick = this.quickAnswers.length * 2 - this.mistakes * 2;
   }
 
   get template() {
@@ -52,7 +60,7 @@ export default class VictoryView extends AbstractView {
     ${this.minutes}&nbsp;${getNumEnding(this.minutes, gameRules.MINUTES)} и 
     ${this.seconds}&nbsp;${getNumEnding(this.seconds, gameRules.SECONDS)}
       <br>вы&nbsp;набрали ${this.score} ${getNumEnding(this.score, gameRules.POINTS)} 
-      (${this.quickAnswers.length * 2} ${getNumEnding(this.quickAnswers.length * 2, gameRules.QUICK)})
+      (${this.quick} ${getNumEnding(this.quick, gameRules.QUICK)})
       <br>совершив ${this.mistakes} ${getNumEnding((this.mistakes), gameRules.MISTAKES)}</div>
     <span class="main-comparison">${playerResult(this.result, this.statistics)}</span>
     <span role="button" tabindex="0" class="main-replay">Сыграть ещё раз</span>`;

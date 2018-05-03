@@ -13,17 +13,17 @@ export const getWinMessage = (position, statistics, percent) => {
 };
 
 export default (answer, statistics) => {
-  const gameStats = statistics.map((item) => scoring(item.answers));
-
-  let failAnswers = answer.answers.filter((item) => item === -1).length;
-
   if (answer.time > gameRules.MAX_TIME) {
     return timeFail;
   }
 
+  let failAnswers = answer.answers.filter((item) => item === -1).length;
+
   if (failAnswers > gameRules.AMOUNT_FAIL) {
     return attemptFail;
   }
+
+  const gameStats = statistics.map((item) => scoring(item.answers));
 
   const score = scoring(answer.answers);
 
@@ -34,3 +34,4 @@ export default (answer, statistics) => {
 
   return getWinMessage(playerPosition, gameStats.length, successPercent);
 };
+

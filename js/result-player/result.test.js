@@ -29,6 +29,23 @@ describe(`Вывод результата игрока`, () => {
       time: 300,
       answers: [30, 30, 30, 30, 30, 30, 30, 30, 30, 30]
     };
-    assert.strictEqual(resultPlayer(answer, [2, 3, 5, 12]), getWinMessage(2, 5, 60));
+    assert.strictEqual(resultPlayer(answer, [
+      {
+        time: 300,
+        answers: [30, 30, 30, 30, 30, 30, 30, 30, 30, 30]
+      },
+      {
+        time: 300,
+        answers: [30, 30, 30, 30, 30, 30, 30, 30, 30, 30]
+      },
+      {
+        time: 300,
+        answers: [30, 30, 30, 30, 30, 30, 30, 30, 30, 30]
+      },
+      {
+        time: 300,
+        answers: [30, 30, 30, 30, 30, 30, 30, 30, 30, 30]
+      }
+    ]), getWinMessage(1, 5, 80));
   });
 });
