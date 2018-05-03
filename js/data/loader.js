@@ -1,5 +1,4 @@
 const SERVER_URL = `https://es.dump.academy/guess-melody`;
-
 const APP_ID = `3579513`;
 
 const checkStatus = (response) => {

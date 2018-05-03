@@ -1,4 +1,4 @@
-export const gameRules = {
+export const GameRules = {
   AMOUNT_FAIL: 2,
   MAX_TIME: 300,
   MAX_LEVEL: 10,
@@ -18,7 +18,7 @@ export const PLAYER_STAT = {
   roundEndTime: 0,
   roundTime: 0,
   lives: 3,
-  time: gameRules.MAX_TIME,
+  time: GameRules.MAX_TIME,
   answer: {
     time: 0,
     answers: []

@@ -1,11 +1,11 @@
-import AbstractView from "../AbstractView";
+import AbstractView from "../abstract-view";
 import scoring from "../../scoring/score";
 import playerResult from "../../result-player/result";
-import Application from "../../Application";
-import {gameRules} from "../../data/game-data";
-import {getMinute} from "../header/HeaderView";
+import Application from "../../application";
+import {GameRules} from "../../data/game-data";
+import {getMinute} from "../header/header-view";
 
-const numEnding = {
+const NumEnding = {
   MULTIPLE_HUNDRED: 100,
   MULTIPLE_TEN: 10,
   GREATER_THEN_ELEVEN: 11,
@@ -15,11 +15,11 @@ const numEnding = {
 const getNumEnding = (iNumber, aEndings) => {
   let sEnding;
   let i;
-  iNumber = iNumber % numEnding.MULTIPLE_HUNDRED;
-  if (iNumber >= numEnding.GREATER_THEN_ELEVEN && iNumber <= numEnding.LESS_THEN_NINETEEN) {
+  iNumber = iNumber % NumEnding.MULTIPLE_HUNDRED;
+  if (iNumber >= NumEnding.GREATER_THEN_ELEVEN && iNumber <= NumEnding.LESS_THEN_NINETEEN) {
     sEnding = aEndings[2];
   } else {
-    i = iNumber % numEnding.MULTIPLE_TEN;
+    i = iNumber % NumEnding.MULTIPLE_TEN;
     switch (i) {
       case (1):
         sEnding = aEndings[0];
@@ -46,8 +46,8 @@ export default class VictoryView extends AbstractView {
 
     this.score = scoring(this.result.answers);
     this.minutes = getMinute(this.time);
-    this.seconds = this.time - this.minutes * gameRules.SEC_PER_MIN;
-    this.quickAnswers = this.result.answers.filter((item) => item < gameRules.QUICK_TIME && item !== -1);
+    this.seconds = this.time - this.minutes * GameRules.SEC_PER_MIN;
+    this.quickAnswers = this.result.answers.filter((item) => item < GameRules.QUICK_TIME && item !== -1);
     this.quick = this.quickAnswers.length * 2 - this.mistakes * 2;
   }
 
@@ -57,11 +57,11 @@ export default class VictoryView extends AbstractView {
 
     <h2 class="title">Вы настоящий меломан!</h2>
     <div class="main-stat">За&nbsp;
-    ${this.minutes}&nbsp;${getNumEnding(this.minutes, gameRules.MINUTES)} и 
-    ${this.seconds}&nbsp;${getNumEnding(this.seconds, gameRules.SECONDS)}
-      <br>вы&nbsp;набрали ${this.score} ${getNumEnding(this.score, gameRules.POINTS)} 
-      (${this.quick} ${getNumEnding(this.quick, gameRules.QUICK)})
-      <br>совершив ${this.mistakes} ${getNumEnding((this.mistakes), gameRules.MISTAKES)}</div>
+    ${this.minutes}&nbsp;${getNumEnding(this.minutes, GameRules.MINUTES)} и 
+    ${this.seconds}&nbsp;${getNumEnding(this.seconds, GameRules.SECONDS)}
+      <br>вы&nbsp;набрали ${this.score} ${getNumEnding(this.score, GameRules.POINTS)} 
+      (${this.quick} ${getNumEnding(this.quick, GameRules.QUICK)})
+      <br>совершив ${this.mistakes} ${getNumEnding((this.mistakes), GameRules.MISTAKES)}</div>
     <span class="main-comparison">${playerResult(this.result, this.statistics)}</span>
     <span role="button" tabindex="0" class="main-replay">Сыграть ещё раз</span>`;
   }

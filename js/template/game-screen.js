@@ -1,10 +1,10 @@
-import ArtistView from './level-screen/ArtistView';
-import GenreView from './level-screen/GenreView';
-import HeaderView from './header/HeaderView';
-import DieView from "./result-screens/DieView";
-import TimeoutView from "./result-screens/TimeoutView";
-import {gameRules} from "../data/game-data";
-import Application from "../Application";
+import ArtistView from './level-screen/artist-view';
+import GenreView from './level-screen/genre-view';
+import HeaderView from './header/header-view';
+import DieView from "./result-screens/die-view";
+import TimeoutView from "./result-screens/timeout-view";
+import {GameRules} from "../data/game-data";
+import Application from "../application";
 
 const getCurrentView = (state) => {
   return state.getType() === `artist` ? new ArtistView(state.getCurrentLevel()) : new GenreView(state.getCurrentLevel());
@@ -49,8 +49,8 @@ class GameScreen {
       case true:
         this.model.state.answer.answers.push(this.model.getRoundTime());
         this.model.nextLevel();
-        if (this.model.state.level >= gameRules.MAX_LEVEL) {
-          this.model.state.answer.time = gameRules.MAX_TIME - this.model._state.time;
+        if (this.model.state.level >= GameRules.MAX_LEVEL) {
+          this.model.state.answer.time = GameRules.MAX_TIME - this.model._state.time;
           Application.showStats(this.model._state);
         } else {
           this.startGame();
@@ -62,8 +62,8 @@ class GameScreen {
         this.model.nextLevel();
         if (this.model.state.lives <= 0) {
           this.endGame(`die`);
-        } else if (this.model.state.level >= gameRules.MAX_LEVEL) {
-          this.model.state.answer.time = gameRules.MAX_TIME - this.model._state.time;
+        } else if (this.model.state.level >= GameRules.MAX_LEVEL) {
+          this.model.state.answer.time = GameRules.MAX_TIME - this.model._state.time;
           Application.showStats(this.model._state);
         } else {
           this.startGame();
