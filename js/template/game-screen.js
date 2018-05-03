@@ -42,12 +42,9 @@ class GameScreen {
 
     this._interval = setInterval(() => {
       this.model.tick();
-
-      if (this.model.state.time < GameRules.MAX_TIME) {
-        this.header.renderMinutes(this.model.state.time);
-        this.header.renderSeconds(this.model.state.time);
-        this.header.renderRound(this.model.state.time);
-      }
+      this.header.renderMinutes(this.model.state.time);
+      this.header.renderSeconds(this.model.state.time);
+      this.header.renderRound(this.model.state.time);
 
       if (this.model.state.time === GameRules.QUICK_TIME) {
         this.header.setColorTime();
