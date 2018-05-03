@@ -13,8 +13,6 @@ const drawLives = (state) => {
       <img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">`).join(``)}`;
 };
 
-const setColorTime = (time) => time <= GameRules.QUICK_TIME ? `timer-value--finished` : ``;
-
 export default class HeaderView extends AbstractView {
   constructor(state) {
     super();
@@ -34,12 +32,32 @@ export default class HeaderView extends AbstractView {
           style="filter: url(#blur);  transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
         </svg>
         
-        <div class="timer-value ${setColorTime(this.state.time)}" style="color: ${this.color}" xmlns="http://www.w3.org/1999/xhtml">
+        <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml">
           <span class="timer-value-mins">${getMinute(this.state.time)}</span>
           <span class="timer-value-dots">:</span>
           <span class="timer-value-secs">${this.state.time - getMinute(this.state.time) * GameRules.SEC_PER_MIN}</span>
         </div>
         <div class="main-mistakes">${drawLives(this.state.mistakes)}</div>
 `;
+  }
+
+  renderMinutes(time) {
+    const minutesElement = this.element.querySelector(`.timer-value-mins`);
+    minutesElement.textContent = `${getMinute(time)}`;
+  }
+
+  renderSeconds(time) {
+    const secondsElement = this.element.querySelector(`.timer-value-secs`);
+    secondsElement.textContent = `${time - getMinute(time) * GameRules.SEC_PER_MIN}`;
+  }
+
+  renderRound(time) {
+    const timerRound = this.element.querySelector(`.timer`);
+    timerRound.setAttribute(`stroke-dashoffset`, this.shadowRound * (GameRules.MAX_TIME - time));
+  }
+
+  setColorTime() {
+    const timer = this.element.querySelector(`.timer-value`);
+    timer.classList.add(`timer-value--finished`);
   }
 }

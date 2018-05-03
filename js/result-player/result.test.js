@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import resultPlayer, {attemptFail, timeFail, getWinMessage} from './result';
+import resultPlayer, {ResultMessage, getWinMessage} from './result';
 
 describe(`Вывод результата игрока`, () => {
 
@@ -13,7 +13,7 @@ describe(`Вывод результата игрока`, () => {
       time: 315,
       answers: [35, 35, 30, 35, 30, 30, 30, 30, 30, 30]
     };
-    assert.strictEqual(resultPlayer(answer), timeFail);
+    assert.strictEqual(resultPlayer(answer), ResultMessage.TIME_FAIL);
   });
 
   it(`Совершенно три ошибки`, () => {
@@ -21,7 +21,7 @@ describe(`Вывод результата игрока`, () => {
       time: 240,
       answers: [-1, -1, -1, 30, 30, 30, 30, 30, 30, 30]
     };
-    assert.strictEqual(resultPlayer(answer), attemptFail);
+    assert.strictEqual(resultPlayer(answer), ResultMessage.ATTEMPT_FAIL);
   });
 
   it(`Получает результат`, () => {
