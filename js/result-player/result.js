@@ -1,5 +1,5 @@
 import scoring from '../scoring/score';
-import {GameRules} from '../data/game-data';
+import {GAME_RULES} from '../data/game-data';
 
 export const ResultMessage = {
   TIME_FAIL: `Время вышло! Вы не успели отгадать все мелодии`,
@@ -10,19 +10,18 @@ export const getWinMessage = (position, statistics, percent) => {
   return `Вы заняли ${position} место из ${statistics}. Это лучше, чем у ${percent}% игроков`;
 };
 
-
 const sortArray = (a, b) => {
   return b - a;
 };
 
 export default (answer, statistics) => {
-  if (answer.time > GameRules.MAX_TIME) {
+  if (answer.time > GAME_RULES.maxTime) {
     return ResultMessage.TIME_FAIL;
   }
 
   let failAnswers = answer.answers.filter((item) => item === -1).length;
 
-  if (failAnswers > GameRules.AMOUNT_FAIL) {
+  if (failAnswers > GAME_RULES.amountFail) {
     return ResultMessage.ATTEMPT_FAIL;
   }
 

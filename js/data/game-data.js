@@ -1,14 +1,14 @@
-export const GameRules = {
-  AMOUNT_FAIL: 2,
-  MAX_TIME: 300,
-  MAX_LEVEL: 10,
-  QUICK_TIME: 30,
-  SEC_PER_MIN: 60,
-  MINUTES: [`минуту`, `минуты`, `минут`],
-  SECONDS: [`секунда`, `секунды`, `секунд`],
-  MISTAKES: [`ошибка`, `ошибки`, `ошибок`],
-  QUICK: [`быстрый`, `быстрых`, `быстрых`],
-  POINTS: [`балл`, `балла`, `баллов`]
+export const GAME_RULES = {
+  amountFail: 3,
+  maxTime: 300,
+  maxLevel: 10,
+  quickTime: 30,
+  secPerMin: 60,
+  minutes: [`минуту`, `минуты`, `минут`],
+  seconds: [`секунда`, `секунды`, `секунд`],
+  mistakes: [`ошибку`, `ошибки`, `ошибок`],
+  quick: [`быстрый`, `быстрых`, `быстрых`],
+  points: [`балл`, `балла`, `баллов`]
 };
 
 export const PLAYER_STAT = {
@@ -18,7 +18,7 @@ export const PLAYER_STAT = {
   roundEndTime: 0,
   roundTime: 0,
   lives: 3,
-  time: GameRules.MAX_TIME,
+  time: GAME_RULES.maxTime,
   answer: {
     time: 0,
     answers: []

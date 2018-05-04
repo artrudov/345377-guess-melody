@@ -29,6 +29,7 @@ class GameModel {
 
   restart() {
     this._state = Object.assign({}, PLAYER_STAT);
+    this._state.answer.answers = [];
   }
 
   getCurrentLevel() {

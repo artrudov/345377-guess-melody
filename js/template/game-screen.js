@@ -3,7 +3,7 @@ import GenreView from './level-screen/genre-view';
 import HeaderView from './header/header-view';
 import DieView from './result-screens/die-view';
 import TimeoutView from './result-screens/timeout-view';
-import {GameRules} from '../data/game-data';
+import {GAME_RULES} from '../data/game-data';
 import Application from '../application';
 
 const ROUND_FAIL = -1;
@@ -46,7 +46,7 @@ class GameScreen {
       this.header.renderSeconds(this.model.state.time);
       this.header.renderRound(this.model.state.time);
 
-      if (this.model.state.time === GameRules.QUICK_TIME) {
+      if (this.model.state.time === GAME_RULES.quickTime) {
         this.header.setColorTime();
       }
 
@@ -100,11 +100,11 @@ class GameScreen {
   }
 
   checkLevel() {
-    return this.model.state.level >= GameRules.MAX_LEVEL;
+    return this.model.state.level >= GAME_RULES.maxLevel;
   }
 
   showStats() {
-    this.model.state.answer.time = GameRules.MAX_TIME - this.model._state.time;
+    this.model.state.answer.time = GAME_RULES.maxTime - this.model._state.time;
     Application.showStats(this.model._state);
   }
 

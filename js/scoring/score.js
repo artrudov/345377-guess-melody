@@ -1,15 +1,15 @@
-import {GameRules} from '../data/game-data';
+import {GAME_RULES} from '../data/game-data';
 
 const getScore = (item) => {
   if (item === -1) {
     return -2;
   }
 
-  if (item < GameRules.QUICK_TIME) {
+  if (item < GAME_RULES.quickTime) {
     return 2;
   }
 
-  if (item >= GameRules.QUICK_TIME) {
+  if (item >= GAME_RULES.quickTime) {
     return 1;
   }
 
@@ -17,7 +17,7 @@ const getScore = (item) => {
 };
 
 export default (answersArray) => {
-  if (answersArray.length < GameRules.MAX_LEVEL) {
+  if (answersArray.length < GAME_RULES.maxLevel) {
     return -1;
   }
 
